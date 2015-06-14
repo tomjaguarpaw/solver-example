@@ -103,7 +103,10 @@ installPlan' previous maxInstallsLower maxInstallsUpper vars eqns = do
     return previous
   else do
 
-    print (maxInstallsLower, maxInstallsUpper)
+    putStrLn ("Looking for "
+              ++ show maxInstallsLower
+              ++ " <= num packages < "
+              ++ show maxInstallsUpper)
 
     let midpoint = (maxInstallsUpper + maxInstallsLower) `div` 2
   
