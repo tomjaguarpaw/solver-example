@@ -26,3 +26,6 @@ Looking for 0 <= num packages < 100
 Looking for 0 <= num packages < 49
 ...
 ```
+
+Please note that that the modules besides `Cabal`, `Main` and `Solve`
+are rather mysterious and should probably be ignored.
