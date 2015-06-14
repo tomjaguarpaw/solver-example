@@ -17,10 +17,12 @@ a lot.
 fewest dependent packages to be installed.  This takes around 15
 seconds on my machine.  Speeding this up is work in progress.
 
-    ghci Main.hs
-    *Main> saveOpaleyeDeps
-    ...
-    *Main> main
-    Looking for 0 <= num packages < 100
-    Looking for 0 <= num packages < 49
-    ...
+```
+ghci Main.hs
+*Main> saveOpaleyeDeps
+...
+*Main> main
+Looking for 0 <= num packages < 100
+Looking for 0 <= num packages < 49
+...
+```
