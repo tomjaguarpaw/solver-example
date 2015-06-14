@@ -88,25 +88,34 @@ equations maxInstalls m = installPackage
 installPlan :: SAT.VarMap c r
             -> (Integer -> c -> E.Bit)
             -> IO (Maybe r)
-installPlan = installPlan' Nothing 62
+installPlan = installPlan' Nothing 0 100
 
+-- Use bisection to look for solution between maxInstallsLower
+-- (inclusive) and maxInstallsUpper (exclusive)
 installPlan' :: Maybe r
+             -> Integer
              -> Integer
              -> SAT.VarMap c r
              -> (Integer -> c -> E.Bit)
              -> IO (Maybe r)
-installPlan' previous maxInstalls vars eqns = do
-  (result, solution) <- SAT.solve vars (eqns maxInstalls)
+installPlan' previous maxInstallsLower maxInstallsUpper vars eqns = do
+  if maxInstallsUpper <= maxInstallsLower then
+    return previous
+  else do
 
-  case (result, solution) of
-    (E.Unsolved,    _)     -> return previous
-    (E.Unsatisfied, _)     -> return previous
-    (E.Satisfied, Nothing) -> error "Nothing when Satisfied"
-    (E.Satisfied, solution'@(Just _)) ->
-      if maxInstalls == 42 then
-        return solution'
-      else
-        installPlan' solution' (maxInstalls - 1) vars eqns
+    print (maxInstallsLower, maxInstallsUpper)
+
+    let midpoint = (maxInstallsUpper + maxInstallsLower) `div` 2
+  
+    (result, solution) <- SAT.solve vars (eqns midpoint)
+  
+    case (result, solution) of
+      (E.Unsolved,    _)     -> recurse previous (midpoint + 1) maxInstallsUpper
+      (E.Unsatisfied, _)     -> recurse previous (midpoint + 1) maxInstallsUpper
+      (E.Satisfied, Nothing) -> error "Nothing when Satisfied"
+      (E.Satisfied, solution'@(Just _)) -> recurse solution' maxInstallsLower (midpoint - 1)
+
+  where recurse s x y = installPlan' s x y vars eqns
 
 deduceInstallPlan :: M P (M V (M P [V])) -> IO (Maybe (M P (M V Bool)))
 deduceInstallPlan = flip installPlan equations . makeVars
