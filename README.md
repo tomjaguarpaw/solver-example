@@ -3,8 +3,8 @@
 1. Install the `minisat` binary to your `PATH`.
 [http://www.minisat.se/MiniSat.html](http://www.minisat.se/MiniSat.html).
 
-2. Go to the `deps` function in `Cabal.hs` and change the location of
-the cabal index tarball to the one on your system.
+2. Edit the `deps` function in `Cabal.hs` so that the location of the
+cabal index tarball is the one on your system.
 
 3. Run `saveOpaleyeDeps` to load the cabal index tarball, parse all
 the cabal files within, and save the dependencies that pertain to the
