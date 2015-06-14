@@ -1,6 +1,6 @@
 # A proof-of-concept cabal solver example using SAT
 
-1. Install the `minisat` binary.
+1. Install the `minisat` binary to your `PATH`.
 [http://www.minisat.se/MiniSat.html](http://www.minisat.se/MiniSat.html).
 
 2. Go to the `deps` function in `Cabal.hs` and change the location of
