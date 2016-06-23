@@ -1,7 +1,7 @@
 # A proof-of-concept cabal solver example using SAT
 
 1. Install the `minisat` binary to your `PATH`.
-[http://www.minisat.se/MiniSat.html](http://minisat.se/MiniSat.html).
+[http://minisat.se/MiniSat.html](http://minisat.se/MiniSat.html).
 
 2. Edit the `deps` function in `Cabal.hs` so that the location of the
 cabal index tarball is the one on your system.
